@@ -28,9 +28,9 @@ export class CategoriasController {
     return this.categoriasService.findAll();
   }
 
-  @Get('/:id')
-  findOne(@Param('id', ValidacaoParametrosPipe) id: string) {
-    return this.categoriasService.findOne(id);
+  @Get('/:categoria')
+  findOne(@Param('categoria', ValidacaoParametrosPipe) categoria: string) {
+    return this.categoriasService.findOne(categoria);
   }
 
   @Patch('/:id')

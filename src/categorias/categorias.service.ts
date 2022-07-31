@@ -30,16 +30,16 @@ export class CategoriasService {
     return await this.categoriaModel.find().populate("jogadores").exec();
   }
 
-  async findOne(_id: string): Promise<Categoria> {
-    const categoria = await this.categoriaModel.findOne({_id}).exec();
+  async findOne(categoria: string): Promise<Categoria> {
+    const categoriaEncontrada = await this.categoriaModel.findOne({categoria}).exec();
 
-    if(!categoria){
+    if(!categoriaEncontrada){
       throw new NotFoundException(
-        `Categoria com o id ${_id} não encontrado`,
+        `Categoria ${categoria} não encontrado`,
       );
     }
 
-    return categoria;
+    return categoriaEncontrada;
   }
 
   async update(_id: string, updateCategoriaDto: UpdateCategoriaDto): Promise<void> {
