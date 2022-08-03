@@ -1,10 +1,11 @@
-import { Date, Document } from "mongoose";
+import { Document } from "mongoose";
 import { Jogador } from "src/jogadores/Interfaces/jogador.interface";
 
 export interface Desafio extends Document{
-    readonly dataHoraDesafio: Date;
+    dataHoraDesafio: Date;
     status: string;
     dataHoraSolicitacao: Date;
+    dataHoraResposta: Date;
     solicitante: string;
     categoria: string;
     jogadores: Array<Jogador>
@@ -21,6 +22,14 @@ export interface Partida extends Document{
 
 export interface Resultado {
     set: string;
+}
+
+export enum DesafioStatus {
+    REALIZADO = 'REALIZADO',
+    PENDENTE = 'PENDENTE',
+    ACEITO = 'ACEITO',
+    NEGADO = 'NEGADO',
+    CANCELADO = 'CANCELADO'
 }
 // "dataHoraDesafio": "2020-05-04 18:00:00",
 // 	"status": "REALIZADO",

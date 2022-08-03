@@ -1,15 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { ValidacaoParametrosPipe } from 'src/common/pipes/validacao_parametros.pipe';
 import { DesafiosService } from './desafios.service';
+import { AtribuirDesafioPartidaDto } from './dto/atribuir-desafio-partida.dto';
 import { CreateDesafioDto } from './dto/create-desafio.dto';
 import { UpdateDesafioDto } from './dto/update-desafio.dto';
+import { DesafioStatusValidacaoPipe } from './pipes/desafio-status-validation.pipe';
 
 @Controller('api/v1/desafios')
 export class DesafiosController {
   constructor(private readonly desafiosService: DesafiosService) {}
 
   @Post()
+  @UsePipes(ValidationPipe)
   create(@Body() createDesafioDto: CreateDesafioDto) {
     return this.desafiosService.create(createDesafioDto);
+  }
+
+  @Post('/partida/:idDesafio')
+  @UsePipes(ValidationPipe)
+  atribuirDesafioPartida(@Param('idDesafio', ValidacaoParametrosPipe) idDesafio: string, @Body() atribuirDesafioPartida: AtribuirDesafioPartidaDto) {
+    return this.desafiosService.atribuirDesafioPartida(idDesafio ,atribuirDesafioPartida);
   }
 
   @Get()
@@ -17,18 +27,19 @@ export class DesafiosController {
     return this.desafiosService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.desafiosService.findOne(+id);
+  @Get('/jogador/:id')
+  findOne(@Param('id', ValidacaoParametrosPipe) id: string) {
+    return this.desafiosService.findByJogador(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDesafioDto: UpdateDesafioDto) {
-    return this.desafiosService.update(+id, updateDesafioDto);
+  @UsePipes(ValidationPipe)
+  update(@Param('id', ValidacaoParametrosPipe) id: string, @Body(DesafioStatusValidacaoPipe) updateDesafioDto: UpdateDesafioDto) {
+    return this.desafiosService.update(id, updateDesafioDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.desafiosService.remove(+id);
+  remove(@Param('id', ValidacaoParametrosPipe) id: string) {
+    return this.desafiosService.remove(id);
   }
 }

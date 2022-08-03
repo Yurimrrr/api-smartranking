@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Jogador } from 'src/jogadores/Interfaces/jogador.interface';
 import { JogadoresService } from 'src/jogadores/jogadores.service';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
 import { UpdateCategoriaDto } from './dto/update-categoria.dto';
@@ -36,6 +37,18 @@ export class CategoriasService {
     if(!categoriaEncontrada){
       throw new NotFoundException(
         `Categoria ${categoria} não encontrado`,
+      );
+    }
+
+    return categoriaEncontrada;
+  }
+
+  async findByJogador(idJogador: Jogador): Promise<Categoria> {
+    const categoriaEncontrada = await this.categoriaModel.findOne({jogadores: idJogador}).exec();
+
+    if(!categoriaEncontrada){
+      throw new NotFoundException(
+        `Jogador ${idJogador} não vinculado à uma categoria`,
       );
     }
 

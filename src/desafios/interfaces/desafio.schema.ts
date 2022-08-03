@@ -13,4 +13,4 @@ export const DesafioSchema = new mongoose.Schema({
   partida: [{
     type: mongoose.Schema.Types.ObjectId, ref: "Partida"
   }]
-}, {timestamps: true, collection: 'categorias'})
+}, {timestamps: true, collection: 'desafios'})
