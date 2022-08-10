@@ -1,11 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ValidacaoParametrosPipe } from 'src/common/pipes/validacao_parametros.pipe';
 import { DesafiosService } from './desafios.service';
 import { AtribuirDesafioPartidaDto } from './dto/atribuir-desafio-partida.dto';
 import { CreateDesafioDto } from './dto/create-desafio.dto';
 import { UpdateDesafioDto } from './dto/update-desafio.dto';
 import { DesafioStatusValidacaoPipe } from './pipes/desafio-status-validation.pipe';
-
+@ApiTags('desafios')
 @Controller('api/v1/desafios')
 export class DesafiosController {
   constructor(private readonly desafiosService: DesafiosService) {}

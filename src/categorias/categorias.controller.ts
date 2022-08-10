@@ -5,7 +5,8 @@ import { CreateJogadorToCategoria } from './dto/create-jogadorToCategoria.dto';
 import { UpdateCategoriaDto } from './dto/update-categoria.dto';
 import { Categoria } from './interfaces/categoria.interface';
 import { ValidacaoParametrosPipe } from 'src/common/pipes/validacao_parametros.pipe';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('categorias')
 @Controller('api/v1/categorias')
 export class CategoriasController {
   constructor(private readonly categoriasService: CategoriasService) {}
