@@ -3,9 +3,16 @@ import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import * as momentTimezone from 'moment-timezone';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.use(cookieParser());
+  app.enableCors({
+    origin: 'https://localhost:8080', //vue
+    credentials: true
+  })
 
   const config = new DocumentBuilder()
     .setTitle('Swagger')
