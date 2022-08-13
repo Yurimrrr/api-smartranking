@@ -67,6 +67,10 @@ export class UsuarioService {
     return await this.usuarioModel.findOne(condition);
   }
 
+  async findOneByEmail(email: string): Promise<Usuario> {
+    return await this.usuarioModel.findOne({email: email});
+  }
+
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
     return `This action updates a #${id} usuario`;
   }

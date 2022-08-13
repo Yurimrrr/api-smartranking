@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CategoriasModule } from './categorias/categorias.module';
 import { DesafiosModule } from './desafios/desafios.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     JogadoresModule,
     CategoriasModule,
     DesafiosModule,
-    UsuarioModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
